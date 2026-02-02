@@ -1,0 +1,80 @@
+---Complete Summary: Merging Two Sorted Linked Lists---
+
+The Problem:
+Combine two already-sorted linked lists into one sorted list by rearranging the existing nodes (not creating new ones).
+
+Key Concepts We Learned
+1. Linked List Basics
+
+A linked list is like a treasure hunt - each node points to the next one
+Each node has two parts:
+
+.val - the value stored (the number)
+.next - pointer to the next node (or None if it's the last)
+
+2. The __init__ Method
+
+A special setup function that runs automatically when creating objects
+Like a factory's assembly instructions
+self means "this specific object I'm creating right now"
+
+pythonclass ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val    # Store the value
+        self.next = next  # Store the pointer
+
+3. Creating and Connecting Nodes
+pythonnode1 = ListNode(1)  # Create a node with value 1
+node2 = ListNode(2)  # Create a node with value 2
+node1.next = node2   # Link them together
+
+The Algorithm Strategy
+The Core Idea
+Since both lists are already sorted, we can:
+
+Compare the front nodes of both lists
+Pick whichever is smaller
+Add it to our merged list
+Move forward in that list
+Repeat until one list is empty
+Attach whatever remains (it's guaranteed to be bigger)
+
+The "Dummy Node" Trick
+
+Create a fake placeholder node to make building easier
+dummy stays at the start (our anchor)
+current moves along as we build (our worker)
+At the end, return dummy.next to skip the placeholder
+
+
+The Complete Solution:
+
+pythondef mergeTwoLists(list1, list2):
+    # Step 1: Create dummy node as starting point
+    dummy = ListNode()
+    current = dummy  # Worker pointer starts at dummy
+
+    # Step 2: While both lists have nodes, compare and merge
+    while list1 and list2:
+        if list1.val < list2.val:  # Compare VALUES not nodes
+            current.next = list1    # Connect smaller node
+            list1 = list1.next      # Move forward in list1
+        else:
+            current.next = list2    # Connect smaller node
+            list2 = list2.next      # Move forward in list2
+
+        current = current.next      # Move worker forward
+
+    # Step 3: Attach leftover nodes (whichever list isn't empty)
+    current.next = list1 or list2
+
+    # Step 4: Return actual list (skip the dummy)
+    return dummy.next
+    (if we just returned "dummy" we would have an extra node)
+
+Important Takeaways
+✅ Use .val and .next (no parentheses - they're attributes, not methods)
+✅ Compare values, not nodes: list1.val < list2.val
+✅ Move pointers forward: list1 = list1.next
+✅ Dummy node pattern makes building linked lists much easier
+✅ Leverage the sorted property - leftovers can just be attached at the end
