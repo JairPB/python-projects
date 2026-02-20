@@ -6,7 +6,8 @@ class MyQR:
         self.qr = qrcode.QRCode(box_size=size, border=padding)
 
     def create_qr(self, file_name: str, fg: str, bg: str):
-        user_input: str = input("Enter text: ")
+        # user_input: str = input("Enter text: ")
+        user_input: str = "www.website.com"
 
         try:
             self.qr.add_data(user_input)
