@@ -4,4 +4,7 @@ version = "0.1.0"
 description = "Python workspace specifically created to test and solve python exercises."
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "pillow>=12.1.1",
+    "qrcode>=8.2",
+]
